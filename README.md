@@ -33,8 +33,34 @@ If you run a Ceph cluster or use Proxmox Backup Server or have a multi-node clus
 
 If you have a paid Proxmox subscription and rely on enterprise repo, the enterprise repo will be disabled (script comments it out). You can re-enable it after upgrading if you have credentials.
 
-
-
 This script will backup VMs but you should still ensure external backups exist before proceeding.
+
+How to run (one-liner)
+curl -fsSL -o /root/upgrade-pve8-to-pve9.sh 'data:text/plain;base64,{{BASE64}}' && chmod +x /root/upgrade-pve8-to-pve9.sh && /root/upgrade-pve8-to-pve9.sh
+
+
+(Replace {{BASE64}} with the base64 of the script if you want to download via data URL; simplest is to paste the script into /root/upgrade-pve8-to-pve9.sh and run it.)
+
+Better:
+
+nano /root/upgrade-pve8-to-pve9.sh
+# paste script, save
+chmod +x /root/upgrade-pve8-to-pve9.sh
+/root/upgrade-pve8-to-pve9.sh
+
+After the upgrade
+
+Reboot (if you didn’t earlier).
+
+Verify:
+
+pveversion
+uname -r
+apt update
+
+
+Check VMs, storage, network bridges, firewall VM (OPNsense) and confirm everything boots.
+
+If you see any APT repo or GPG key warnings, copy the relevant apt update output and paste here — I will help fix quickly.
 
 Keep an eye on the log /root/pve9-upgrade.log.
